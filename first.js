@@ -1,1 +1,0 @@
-npx create-react-app intro cd intro npm start
