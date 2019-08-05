@@ -1,6 +1,7 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import PropTypes from "prop-types";
+import logo from "./logo.svg";
+import "./App.css";
 
 function App() {
   return (
@@ -22,5 +23,7 @@ function App() {
     </div>
   );
 }
+
+App.prototype = {};
 
 export default App;

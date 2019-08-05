@@ -1,30 +1,6 @@
 import React from "react";
 import "./App.css";
-
-class ShopItemFunc extends React.Component {
-  render() {
-    const { item } = this.props;
-    return (
-      <div className="main-content">
-        <h2>{item.brand}</h2>
-        <h1>{item.title}</h1>
-        <h3>{item.description}</h3>
-        <div className="description">{item.descriptionFull}</div>
-        <div className="highlight-window  mobile">
-          <div className="highlight-overlay" />
-        </div>
-        <div className="divider" />
-        <div className="purchase-info">
-          <div className="price">
-            {item.currency}
-            {item.price}
-          </div>
-          <button>Добавить в корзину</button>
-        </div>
-      </div>
-    );
-  }
-}
+import ShopItem from "./ShopItem";
 
 class App extends React.Component {
   render() {
@@ -45,7 +21,7 @@ class App extends React.Component {
           <div className="highlight-overlay" />
         </div>
         <div className="window">
-          <ShopItemFunc item={item} />
+          <ShopItem item={item} />
         </div>
       </div>
     );
