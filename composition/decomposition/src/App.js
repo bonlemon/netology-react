@@ -6,18 +6,17 @@ import Search from './components/Search';
 import Prompt from './components/Prompt';
 import AdvertisingSlider from './components/AdvertisingSlider';
 import BlockFoot from './components/BlockFoot';
-import {filtres} from './data/filtres'
-
+import { filtres } from './data';
 
 export default function App() {
-  return (
-    <React.Fragment>
-      <News />
-      <SearchMenu filtres={filtres}/>
-      <Search />
-      <Prompt />
-      <AdvertisingSlider />
-      <BlockFoot />
-    </React.Fragment>
-  );
+    return (
+        <React.Fragment>
+            <News />
+            <SearchMenu filtres={filtres} />
+            <Search />
+            <Prompt />
+            <AdvertisingSlider />
+            <BlockFoot />
+        </React.Fragment>
+    );
 }

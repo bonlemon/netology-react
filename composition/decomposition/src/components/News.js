@@ -1,7 +1,6 @@
 import React from 'react';
 import NewsHeader from './NewsHeader';
-import {blocks} from '../data/blocks';
-import {titles} from '../data/titles'
+import { blocks, titles } from '../data';
 import NewsBlock from './NewsBlock';
 
 /**
@@ -14,5 +13,5 @@ export default function News() {
             <NewsHeader titles={titles} />
             <NewsBlock blocks={blocks} />
         </React.Fragment>
-    )
+    );
 }

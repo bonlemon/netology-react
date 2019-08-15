@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles.css';
+import './App.css';
 
 const Card = ({ srcUrl, title, text, buttonTitle, onClick }) => {
     return (
@@ -15,7 +14,7 @@ const Card = ({ srcUrl, title, text, buttonTitle, onClick }) => {
     );
 };
 
-class App extends React.Component {
+export default class App extends React.Component {
     render() {
         return (
             <div className='App'>
@@ -36,6 +35,3 @@ class App extends React.Component {
         );
     }
 }
-
-const rootElement = document.getElementById('root');
-ReactDOM.render(<App />, rootElement);
