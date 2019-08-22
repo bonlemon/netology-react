@@ -27,9 +27,13 @@ export default class App extends Component {
                 id: notes ? notes.length : 0,
                 content,
             }),
-        }).then(() => {
-            this.fetchNotes();
-        });
+        })
+            .then(() => {
+                this.fetchNotes();
+            })
+            .then(() => {
+                this.setState({ content: '' });
+            });
     };
 
     handleOnChange = (event) => {
