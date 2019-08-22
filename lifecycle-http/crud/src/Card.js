@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 
 export class Card extends Component {
     render() {
-        const { note } = this.props;
-        return <div>{note}</div>;
+        const { content, onRemove } = this.props;
+        return (
+            <div>
+                <div>{content}</div>
+                <button onClick={onRemove}>Kill!</button>
+            </div>
+        );
     }
 }
 

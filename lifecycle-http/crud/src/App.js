@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import Card from './Card';
 import Form from './Form';
+import nanoid from 'nanoid';
 
 export default class App extends Component {
     state = {
@@ -11,23 +12,21 @@ export default class App extends Component {
     componentDidMount() {
         this.fetchNotes();
     }
-    fetchNotes = () => {
-        fetch('http://localhost:7777/notes')
-            .then((response) => response.json())
-            .then((notes) => {
-                console.log(notes);
-                this.setState({ notes });
-            });
+    fetchNotes = async () => {
+        let response = await fetch('http://localhost:7777/notes');
+        let json = await response.json();
+        console.log(json);
+        this.setState({ notes: json });
     };
     handleOnClick = () => {
         const { notes, content } = this.state;
 
         fetch('http://localhost:7777/notes', {
             method: 'POST',
-            body: {
+            body: JSON.stringify({
                 id: notes ? notes.length : 0,
                 content,
-            },
+            }),
         }).then(() => {
             this.fetchNotes();
         });
@@ -37,6 +36,13 @@ export default class App extends Component {
         const value = event.target.value;
         this.setState({ content: value });
     };
+    handleOnRemove = (id) => (event) => {
+        fetch(`http://localhost:7777/notes/${id}`, {
+            method: 'DELETE',
+        }).then(() => {
+            this.fetchNotes();
+        });
+    };
 
     render() {
         const { notes, content } = this.state;
@@ -44,8 +50,8 @@ export default class App extends Component {
             <div>
                 <Form value={content} onChange={this.handleOnChange} onClick={this.handleOnClick} />
                 {notes &&
-                    notes.map((note) => {
-                        return <Card note={note} />;
+                    notes.map(({ content, id }) => {
+                        return <Card key={nanoid()} content={content} onRemove={this.handleOnRemove(id)} />;
                     })}
             </div>
         );

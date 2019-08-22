@@ -7,7 +7,7 @@ const koaBody = require('koa-body');
 const app = new Koa();
 
 app.use(cors());
-app.use(koaBody({json: true}));
+app.use(koaBody({ json: true }));
 
 const notes = [];
 let nextId = 1;
@@ -18,14 +18,15 @@ router.get('/notes', async (ctx, next) => {
     ctx.response.body = notes;
 });
 
-router.post('/notes', async(ctx, next) => {
-    notes.push({...ctx.request.body, id: nextId++});
+router.post('/notes', async (ctx, next) => {
+    notes.push({ ...JSON.parse(ctx.request.body), id: nextId++ });
+    console.log('notes', notes);
     ctx.response.status = 204;
 });
 
-router.delete('/notes/:id', async(ctx, next) => {
-    const noteId = Number(ctx.params.id);z
-    const index = notes.findIndex(o => o.id === noteId);
+router.delete('/notes/:id', async (ctx, next) => {
+    const noteId = Number(ctx.params.id);
+    const index = notes.findIndex((o) => o.id === noteId);
     if (index !== -1) {
         notes.splice(index, 1);
     }
