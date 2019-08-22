@@ -1,26 +1,53 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
+import Card from './Card';
+import Form from './Form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends Component {
+    state = {
+        notes: null,
+        content: '',
+    };
+    componentDidMount() {
+        this.fetchNotes();
+    }
+    fetchNotes = () => {
+        fetch('http://localhost:7777/notes')
+            .then((response) => response.json())
+            .then((notes) => {
+                console.log(notes);
+                this.setState({ notes });
+            });
+    };
+    handleOnClick = () => {
+        const { notes, content } = this.state;
+
+        fetch('http://localhost:7777/notes', {
+            method: 'POST',
+            body: {
+                id: notes ? notes.length : 0,
+                content,
+            },
+        }).then(() => {
+            this.fetchNotes();
+        });
+    };
+
+    handleOnChange = (event) => {
+        const value = event.target.value;
+        this.setState({ content: value });
+    };
+
+    render() {
+        const { notes, content } = this.state;
+        return (
+            <div>
+                <Form value={content} onChange={this.handleOnChange} onClick={this.handleOnClick} />
+                {notes &&
+                    notes.map((note) => {
+                        return <Card note={note} />;
+                    })}
+            </div>
+        );
+    }
 }
-
-export default App;

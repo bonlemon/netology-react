@@ -24,7 +24,7 @@ router.post('/notes', async(ctx, next) => {
 });
 
 router.delete('/notes/:id', async(ctx, next) => {
-    const noteId = Number(ctx.params.id);
+    const noteId = Number(ctx.params.id);z
     const index = notes.findIndex(o => o.id === noteId);
     if (index !== -1) {
         notes.splice(index, 1);
@@ -36,4 +36,4 @@ app.use(router.routes()).use(router.allowedMethods());
 
 const port = process.env.PORT || 7777;
 const server = http.createServer(app.callback());
-server.listen(port, () => console.log('server started'));
+server.listen(port, () => console.log('server started on port ' + port));
