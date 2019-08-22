@@ -15,7 +15,6 @@ export default class App extends Component {
     fetchNotes = async () => {
         let response = await fetch('http://localhost:7777/notes');
         let json = await response.json();
-        console.log(json);
         this.setState({ notes: json });
     };
     handleOnClick = () => {
