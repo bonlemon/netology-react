@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { useState, useEffect } from 'react';
 
-function useJsonFetch(url, opts) {
+function useJsonFetch(url) {
     const [data, setData] = useState(null);
     const [isLoading, setLoading] = useState(false);
     const [hasError, setError] = useState(null);
