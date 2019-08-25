@@ -1,48 +1,22 @@
-import React, { useState, useEffect, useRef, Fragment } from 'react';
-import List from './List';
+import React, { useState } from 'react';
 import './App.css';
 
-export default function App() {
-    const [info, setInfo] = useState({ id: null });
+import List from './components/List';
+import Details from './components/Details';
 
-    function handleChoise(id) {
-        setInfo({ id });
-    }
+function App() {
+  const [info, setInfo] = useState({ id: null });
 
-    useEffect(() => {
-        if (info.id) {
-            console.log(info.id);
+  function handleInfo(id, name) {
+    setInfo({ id, name });
+  }
 
-            console.log(
-                `https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/${
-                    info.id.id
-                }.json`
-            );
-            fetch(
-                `https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/${
-                    info.id.id
-                }.json`,
-                { mode: 'cors' }
-            )
-                .then((response) => {
-                    if (response.ok) {
-                        response.json().then((data) => setInfo(data)); //setData
-                    }
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
-        }
-    }, [info]);
-
-    return (
-        <div>
-            <List handleChoise={handleChoise} />
-            {info.id ? (
-                <div>
-                    <img src={info.avatar} alt='avatar' />
-                </div>
-            ) : null}
-        </div>
-    );
+  return (
+    <div className="App">
+      <List handleInfo={handleInfo} />
+      {info.id ? <Details info={info} /> : null}
+    </div>
+  );
 }
+
+export default App;
