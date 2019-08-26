@@ -1,68 +1,52 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# CRUD
 
-## Available Scripts
+Вам необходимо реализовать CRUD при работе с HTTP с использование Router'а.
 
-In the project directory, you can run:
+Backend вы можете либо написать сами, либо взять готовый (из каталога `backend`).
 
-### `npm start`
+![CRUD](./assets/main.png)
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Нас интересует только id, content и created, в качестве остальных значений (имя, фото) можете поставить заглушки.
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Общая механика
 
-### `npm test`
+При нахождении на странице `/` отображается список существующих постов (GET на адрес http://localhost:7777/posts), полученные данные отображаются в виде карточек:
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![List](./assets/main.png)
 
-### `npm run build`
+Кнопка "Создать пост" ведёт на страницу добавления (см. ниже) `/posts/new` (помните про регулярные выражения).
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+При клике на саму карточку происходит переход на страницу просмотра поста (см. ниже) `/posts/{postId}`.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Страница создания
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+На странице создания `/posts/new` отображается карточка создания:
 
-### `npm run eject`
+![New](./assets/new.png)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+При нажатии на кнопку "Опубликовать", пост сохраняется (POST на адрес http://localhost:7777/posts body: `{"id": 0, "content": "То, что введено в поле ввода"}`), после чего осуществляется редирект на главную страницу.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+При нажатии на крестик (в верхнем правом углу) происходит редирект на главную без сохранения (advanced: можете сохранить в localStorage и потом вытаскивать оттуда).
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Страница просмотра
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+На странице просмотра `/posts/{id}` отображается краточка просмотра:
 
-## Learn More
+![View](./assets/view.png)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+При клике на кнопку "Удалить" происходит удаление поста (DELETE на адрес http://localhost:7777/posts/{id}), после чего осуществляется редирект на главную страницу.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+При клике на кнопку "Редактировать" карточка просмотра заменяется карточкой редактирования:
 
-### Code Splitting
+![Edit](./assets/edit.png)
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
+На карточке редактирования:
 
-### Analyzing the Bundle Size
+-   кнопка сохранить приводит к сохранению поста (POST на адрес http://localhost:7777/posts body: `{"id": не 0, "content": "То, что введено в поле ввода"}`) и отображению карточки просмотра (с обновлёнными данными).
+-   кнопка крестик приводит к возврату к карточки просмотра.
 
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
+**Важно**:
 
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+1. Не смотрите на то, как это реализовано на фейсбуке - механика изменена
+1. Но вы можете подглядеть как пользователю отображается загрузка (сетевые операции добавления/сохранения/удаления)
+1. React Router позволяет использовать регулярные выражения в роутах: https://github.com/pillarjs/path-to-regexp/tree/v1.7.0
