@@ -1,6 +1,6 @@
 import React from "react";
 import faker from "faker";
-import { Redirect, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 export function timestampToDate(ts) {
   var d = new Date();

@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
-import "./App.css";
+import React from "react";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import nanoid from "nanoid";
+
+import "./App.css";
 
 import Card from "./components/Card";
 import Create from "./components/Create";
