@@ -3,7 +3,8 @@ import {
   REMOVE_SERVICE,
   CHANGE_SERVICE_FIELD,
   EDIT_SERVICE,
-  UPDATE_SERVICES
+  UPDATE_SERVICES,
+  CANCEL_UPDATE
 } from "./actionTypes";
 
 export function addService(name, price) {
@@ -17,6 +18,9 @@ export function editService(service) {
 }
 export function updateServices(service) {
   return { type: UPDATE_SERVICES, payload: { service } };
+}
+export function cancelUpdate() {
+  return { type: CANCEL_UPDATE };
 }
 export function changeServiceField(name, value) {
   return { type: CHANGE_SERVICE_FIELD, payload: { name, value } };

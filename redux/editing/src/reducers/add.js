@@ -1,6 +1,7 @@
 import {
   CHANGE_SERVICE_FIELD,
   EDIT_SERVICE,
+  CANCEL_UPDATE,
   UPDATE_SERVICES,
   ADD_SERVICE
 } from "../actions/actionTypes";
@@ -20,6 +21,7 @@ export default function serviceAddReducer(state = initialState, action) {
     case EDIT_SERVICE:
       return { ...state, ...action.payload.service };
 
+    case CANCEL_UPDATE:
     case UPDATE_SERVICES:
     case ADD_SERVICE:
       return { ...initialState };
