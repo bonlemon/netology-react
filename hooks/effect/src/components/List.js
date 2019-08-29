@@ -1,40 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import Name from './Name';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import nanoid from "nanoid";
 
 export default function List({ handleInfo }) {
-    const [names, setNames] = useState([]);
+  const [names, setNames] = useState([]);
 
-    const [chosen, setChosen] = useState([]);
+  const [chosen, setChosen] = useState([]);
 
-    useEffect(() => {
-        axios
-            .get(
-                'https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/users.json'
-            )
-            .then((res) => res.data)
-            .then((d) => setNames(d))
-            .catch(function(error) {
-                console.log(error);
-            });
-    }, []);
+  useEffect(() => {
+    axios
+      .get(
+        "https://raw.githubusercontent.com/netology-code/ra16-homeworks/master/hooks-context/use-effect/data/users.json"
+      )
+      .then(res => setNames(res.data))
+      .catch(error => console.log(error));
+  }, []);
 
-    function handleChosen(id, name) {
-        setChosen(id);
-        handleInfo(id, name.name);
-    }
+  function handleChosen(id, name) {
+    setChosen(id);
+    handleInfo(id, name);
+  }
 
-    return (
-        <div className='list-names'>
-            {names.map((name) => (
-                <Name
-                    name={name.name}
-                    handleChosen={(id) => handleChosen(id, name)}
-                    isChosen={name.id === chosen}
-                    key={name.id}
-                    id={name.id}
-                />
-            ))}
-        </div>
-    );
+  return (
+    <div className="list-names">
+      {names.map(({ id, name }) => {
+        return (
+          <div
+            key={nanoid()}
+            onClick={() => handleChosen(id, name)}
+            className={`list-name ${id === chosen ? "chosen" : ""}`}
+          >
+            {name}
+          </div>
+        );
+      })}
+    </div>
+  );
 }
