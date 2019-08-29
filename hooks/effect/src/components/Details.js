@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
+import nanoid from "nanoid";
 
 export default function Details({ info }) {
   const [data, setData] = useState(null);
@@ -39,7 +40,7 @@ export default function Details({ info }) {
         alt="pravatar"
       />
       {Object.keys(data.details).map(key => (
-        <div>
+        <div key={nanoid()}>
           {key}: {data.details[key]}{" "}
         </div>
       ))}
